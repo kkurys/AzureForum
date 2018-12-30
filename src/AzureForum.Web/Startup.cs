@@ -1,3 +1,6 @@
+using System;
+using System.Text;
+using System.Threading.Tasks;
 using AzureForum.Account;
 using AzureForum.Data;
 using AzureForum.Data.Models.Account;
@@ -11,9 +14,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AzureForum.Web
 {
@@ -49,13 +49,11 @@ namespace AzureForum.Web
                     }));
 
             // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });
+            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
 
             ConfigureAzureForumModules(services);
         }
+
         private static void ConfigureIdentity(IServiceCollection services)
         {
             services.AddIdentity<AzureForumUser, AzureForumRole>()
@@ -111,20 +109,20 @@ namespace AzureForum.Web
                             if (!string.IsNullOrEmpty(accessToken)
                                 && (path.StartsWithSegments("/chathub") ||
                                     path.StartsWithSegments("/notificationhub")))
-                            {
                                 context.Token = accessToken;
-                            }
 
                             return Task.CompletedTask;
                         }
                     };
                 });
         }
+
         private static void ConfigureAzureForumModules(IServiceCollection services)
         {
             services.RegisterAccountModule();
             services.RegisterDataModule();
         }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
@@ -148,8 +146,8 @@ namespace AzureForum.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                    "default",
+                    "{controller}/{action=Index}/{id?}");
             });
 
             app.UseSpa(spa =>
@@ -159,12 +157,10 @@ namespace AzureForum.Web
 
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
+                if (env.IsDevelopment()) spa.UseAngularCliServer("start");
             });
         }
+
         private static void UpdateDatabase(IApplicationBuilder app)
         {
             using (var serviceScope = app.ApplicationServices

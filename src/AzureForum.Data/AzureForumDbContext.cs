@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AzureForum.Data
 {
-    public class AzureForumDbContext: IdentityDbContext<AzureForumUser, AzureForumRole, Guid>
+    public class AzureForumDbContext : IdentityDbContext<AzureForumUser, AzureForumRole, Guid>
     {
         public AzureForumDbContext(DbContextOptions options) : base(options)
         {

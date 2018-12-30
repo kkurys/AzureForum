@@ -6,7 +6,7 @@ namespace AzureForum.Account
     {
         public static void RegisterAccountModule(this IServiceCollection services)
         {
-           // services.AddScoped<IDataService, DataService>();
+            // services.AddScoped<IDataService, DataService>();
         }
     }
 }

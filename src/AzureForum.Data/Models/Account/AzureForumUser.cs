@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace AzureForum.Data.Models.Account
 {
-    public class AzureForumUser: IdentityUser<Guid>
+    public class AzureForumUser : IdentityUser<Guid>
     {
     }
 }
