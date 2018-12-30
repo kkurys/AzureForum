@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AzureForum.Account\AzureForum.Account.csproj" />
     <ProjectReference Include="..\AzureForum.Data\AzureForum.Data.csproj" />
   </ItemGroup>
 

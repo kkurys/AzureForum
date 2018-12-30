@@ -1,12 +1,9 @@
-using System;
-using System.Text;
-using System.Threading.Tasks;
+using AzureForum.Account;
 using AzureForum.Data;
 using AzureForum.Data.Models.Account;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -14,6 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AzureForum.Web
 {
@@ -53,6 +53,8 @@ namespace AzureForum.Web
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            ConfigureAzureForumModules(services);
         }
         private static void ConfigureIdentity(IServiceCollection services)
         {
@@ -118,20 +120,27 @@ namespace AzureForum.Web
                     };
                 });
         }
-
+        private static void ConfigureAzureForumModules(IServiceCollection services)
+        {
+            services.RegisterAccountModule();
+            services.RegisterDataModule();
+        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/Error");
+            //    app.UseHsts();
+            //}
+            UpdateDatabase(app);
 
+            app.UseAuthentication();
+            app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
@@ -155,6 +164,18 @@ namespace AzureForum.Web
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+        }
+        private static void UpdateDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices
+                .GetRequiredService<IServiceScopeFactory>()
+                .CreateScope())
+            {
+                using (var context = serviceScope.ServiceProvider.GetService<AzureForumDbContext>())
+                {
+                    context.Database.Migrate();
+                }
+            }
         }
     }
 }

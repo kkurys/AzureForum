@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureForum.Web", "src\Azure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureForum.Data", "src\AzureForum.Data\AzureForum.Data.csproj", "{5B63FA79-F293-4621-B669-B815ED44A504}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureForum.Account", "src\AzureForum.Account\AzureForum.Account.csproj", "{08F246C2-C2D2-42F6-9641-3F9C5E3DC955}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{5B63FA79-F293-4621-B669-B815ED44A504}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B63FA79-F293-4621-B669-B815ED44A504}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B63FA79-F293-4621-B669-B815ED44A504}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08F246C2-C2D2-42F6-9641-3F9C5E3DC955}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08F246C2-C2D2-42F6-9641-3F9C5E3DC955}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08F246C2-C2D2-42F6-9641-3F9C5E3DC955}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08F246C2-C2D2-42F6-9641-3F9C5E3DC955}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +36,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{84A2C057-86C6-464B-99C9-7C78D60E1336} = {1C5C3A6E-2D35-4B39-BD90-C66BDC48CE42}
 		{5B63FA79-F293-4621-B669-B815ED44A504} = {1C5C3A6E-2D35-4B39-BD90-C66BDC48CE42}
+		{08F246C2-C2D2-42F6-9641-3F9C5E3DC955} = {1C5C3A6E-2D35-4B39-BD90-C66BDC48CE42}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2686604D-0191-4FFE-8ACB-B8B21B82C8B5}
