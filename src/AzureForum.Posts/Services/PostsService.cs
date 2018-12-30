@@ -22,11 +22,20 @@ namespace AzureForum.Posts.Services
 
         public async Task<Post> CreatePost(AzureForumUser user, string content, string postThreadId)
         {
+            var postThread =
+                await _dataService.GetSet<PostThread>()
+                    .FirstOrDefaultAsync(x => x.Id.ToString() == postThreadId);
+
+            if (postThread == null)
+            {
+                throw new InvalidPostThreadIdException();
+            }
+
             var newPost = new Post
             {
                 Content = content,
                 CreatedBy = user,
-                PostThreadId = new Guid(postThreadId),
+                PostThread = postThread,
                 CreatedOn = DateTime.UtcNow
             };
 
