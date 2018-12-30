@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AzureForum.Account;
 using AzureForum.Data;
 using AzureForum.Data.Models.Account;
+using AzureForum.Posts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -119,8 +120,9 @@ namespace AzureForum.Web
 
         private static void ConfigureAzureForumModules(IServiceCollection services)
         {
-            services.RegisterAccountModule();
             services.RegisterDataModule();
+            services.RegisterAccountModule();
+            services.RegisterPostsModule();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
