@@ -196,7 +196,7 @@ namespace AzureForum.Data.Migrations
                         column: x => x.PostThreadId,
                         principalTable: "PostThreads",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

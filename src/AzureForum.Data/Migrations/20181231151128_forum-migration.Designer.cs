@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AzureForum.Data.Migrations
 {
     [DbContext(typeof(AzureForumDbContext))]
-    [Migration("20181231145145_forum-migration")]
+    [Migration("20181231151128_forum-migration")]
     partial class forummigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -227,7 +227,7 @@ namespace AzureForum.Data.Migrations
                     b.HasOne("AzureForum.Data.Models.Posts.PostThread", "PostThread")
                         .WithMany("Posts")
                         .HasForeignKey("PostThreadId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("AzureForum.Data.Models.Posts.PostThread", b =>

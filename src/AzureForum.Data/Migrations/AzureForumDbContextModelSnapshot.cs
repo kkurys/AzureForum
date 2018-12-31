@@ -225,7 +225,7 @@ namespace AzureForum.Data.Migrations
                     b.HasOne("AzureForum.Data.Models.Posts.PostThread", "PostThread")
                         .WithMany("Posts")
                         .HasForeignKey("PostThreadId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("AzureForum.Data.Models.Posts.PostThread", b =>

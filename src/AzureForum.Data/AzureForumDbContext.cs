@@ -25,7 +25,8 @@ namespace AzureForum.Data
         {
             builder.Entity<Post>()
                 .HasOne(x => x.PostThread)
-                .WithMany(x => x.Posts);
+                .WithMany(x => x.Posts)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Post>()
                 .HasOne(x => x.CreatedBy)
