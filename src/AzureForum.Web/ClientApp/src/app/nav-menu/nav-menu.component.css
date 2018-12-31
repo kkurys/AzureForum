@@ -29,22 +29,17 @@ li.link-active a:focus {
   .navbar {
     border-radius: 0px;
     border-width: 0px;
-    height: 100%;
   }
-
-  .navbar-header { float: none; }
 
   .navbar-collapse {
     border-top: 1px solid #444;
     padding: 0px;
   }
 
-  .navbar ul { float: none; }
-
   .navbar li {
-    float: none;
     font-size: 15px;
     margin: 6px;
+    display: inline;
   }
 
   .navbar li a {
@@ -57,6 +52,5 @@ li.link-active a:focus {
     text-overflow: ellipsis;
     white-space: nowrap;
     /* If a menu item's text is too long, truncate it */
-    width: 100%;
   }
 }

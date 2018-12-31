@@ -2,7 +2,7 @@
 
 namespace AzureForum.Web.Controllers
 {
-    [Route("api/[controller]/[action")]
+    [Route("api/[controller]/[action]")]
     public class BaseController: Controller
     {
     }
