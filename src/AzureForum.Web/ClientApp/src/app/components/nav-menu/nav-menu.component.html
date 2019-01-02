@@ -1,14 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">MOKK Forum</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a class="nav-item nav-link" href="#">Home</a>
       <a class="nav-item nav-link" *ngIf="isLoggedIn" [routerLink]="" (click)="logout()">Wyloguj się</a>
       <a class="nav-item nav-link" *ngIf="!isLoggedIn" [routerLink]='["/login"]'>Zaloguj się</a>
       <a class="nav-item nav-link" *ngIf="!isLoggedIn" [routerLink]='["/register"]'>Zarejestruj się</a>
     </div>
-  </div>
 </nav>

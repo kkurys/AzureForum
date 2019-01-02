@@ -22,8 +22,8 @@ export class AuthService extends BaseService {
     return this.http.post<string>(url, loginModel);
   }
 
-  register(email, login, password, firstName, lastName) {
-    let registerModel = new RegisterRequest(email, login, password, firstName, lastName);
+  register(email, login, password) {
+    let registerModel = new RegisterRequest(email, login, password);
     let url = this.baseUrl + 'Auth/Register';
 
     return this.http.post<string>(url, registerModel);
