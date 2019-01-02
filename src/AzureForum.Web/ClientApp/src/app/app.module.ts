@@ -5,13 +5,17 @@ import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 
 import { AppComponent } from "./app.component";
-import { NavMenuComponent } from "./nav-menu/nav-menu.component";
-import { HomeComponent } from "./home/home.component";
+import { NavMenuComponent } from "./components/nav-menu/nav-menu.component";
+import { HomeComponent } from "./components/home/home.component";
+import { NavLoginRegisterComponent } from "./components/nav-login-register/nav-login-register.component";
+import { AuthService } from "./services/auth.service";
+import { JwtUtil } from "./utils/jwt.util";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
+    NavLoginRegisterComponent,
     HomeComponent,
   ],
   imports: [
@@ -22,7 +26,10 @@ import { HomeComponent } from "./home/home.component";
       { path: "", component: HomeComponent, pathMatch: "full" }
     ])
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    JwtUtil,
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

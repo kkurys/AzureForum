@@ -1,0 +1,1 @@
+{"version":3,"file":"register-request.model.js","sourceRoot":"","sources":["register-request.model.ts"],"names":[],"mappings":";;AAAA;IACE,yBACS,KAAa,EACb,QAAgB,EAChB,QAAgB,EAChB,SAAiB,EACjB,QAAgB;QAJhB,UAAK,GAAL,KAAK,CAAQ;QACb,aAAQ,GAAR,QAAQ,CAAQ;QAChB,aAAQ,GAAR,QAAQ,CAAQ;QAChB,cAAS,GAAT,SAAS,CAAQ;QACjB,aAAQ,GAAR,QAAQ,CAAQ;IAAI,CAAC;IAChC,sBAAC;AAAD,CAAC,AAPD,IAOC;AAPY,0CAAe"}
