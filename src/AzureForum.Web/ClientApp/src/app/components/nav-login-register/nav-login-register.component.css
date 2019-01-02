@@ -1,0 +1,17 @@
+.navbar li {
+  font-size: 15px;
+  margin: 6px;
+  display: inline;
+}
+
+  .navbar li a {
+    border-radius: 4px;
+    padding: 10px 16px;
+  }
+
+.navbar a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  /* If a menu item's text is too long, truncate it */
+}

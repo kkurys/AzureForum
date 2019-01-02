@@ -20,12 +20,25 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\nav-login-register\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\nav-login-register\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\nav-login-register\nav-login-register.component.ts" />
+    <EmbeddedResource Remove="ClientApp\src\app\nav-login-register\**" />
+    <None Remove="ClientApp\src\app\nav-login-register\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\src\app\components\login\login.component.ts" />
+    <None Remove="ClientApp\src\app\material.module.ts" />
+    <None Remove="ClientApp\src\app\models\requests\login-request.model.ts" />
+    <None Remove="ClientApp\src\app\models\requests\register-request.model.ts" />
+    <None Remove="ClientApp\src\app\services\auth.service.ts" />
+    <None Remove="ClientApp\src\app\services\base.service.ts" />
+    <None Remove="ClientApp\src\app\utils\jwt.util.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,7 +48,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\nav-login-register\nav-login-register.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\components\login\login.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\material.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\requests\login-request.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\requests\register-request.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\auth.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\base.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\utils\jwt.util.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

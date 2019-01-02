@@ -1,0 +1,11 @@
+<div *ngIf="isLoggedIn;else notLogged">
+  <ul class="nav navbar-right">
+    <li><a [routerLink]="" (click)="logout()">Wyloguj się</a></li>
+  </ul>
+</div>
+<ng-template #notLogged>
+  <ul class="nav navbar-right">
+    <li><a [routerLink]='["/login"]'>Zaloguj się</a></li>
+    <li><a [routerLink]='["/register"]'>Zarejestruj się</a></li>
+  </ul>
+</ng-template>

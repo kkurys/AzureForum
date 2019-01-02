@@ -1,4 +1,6 @@
 import { Component } from "@angular/core";
+import { AuthService } from "../../services/auth.service";
+
 
 @Component({
   selector: "app-nav-login-register",
@@ -6,13 +8,11 @@ import { Component } from "@angular/core";
   styleUrls: ["./nav-login-register.component.css"]
 })
 export class NavLoginRegisterComponent {
-  isExpanded = false;
+  isLoggedIn: boolean;
+  constructor(
+    private authService: AuthService) {}
 
-  collapse() {
-    this.isExpanded = false;
-  }
-
-  toggle() {
-    this.isExpanded = !this.isExpanded;
+  ngOnInit(): void {
+    this.isLoggedIn = this.authService.isLoggedIn();
   }
 }

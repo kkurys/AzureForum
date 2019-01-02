@@ -1,0 +1,40 @@
+<div class="container login-page">
+  <div class="row login-main">
+    <div class="offset-md-3 col-md-6 login-form">
+      <mat-card class="example-card">
+        <form [formGroup]="loginForm" (ngSubmit)="submit()">
+          <mat-card-header>
+            <mat-card-title>Zaloguj się</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-form-field>
+              <input id="pp-login"
+                     matInput placeholder="Login"
+                     formControlName="login"
+                     required>
+              <mat-error *ngIf="loginForm.hasError('required', 'login')">
+                Login jest <strong>wymagany</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input id="pp-password"
+                     type="password"
+                     matInput placeholder="Hasło"
+                     formControlName="password"
+                     required>
+              <mat-error *ngIf="loginForm.hasError('required', 'password')">
+                Hasło jest <strong>wymagane</strong>
+              </mat-error>
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-actions class="text-center">
+            <button type="submit" mat-raised-button color="primary">Zaloguj się</button>
+            <button mat-raised-button color="secondary" [routerLink]='["/register"]'>Zarejestruj się</button>
+            <small class="form-text text-danger text-center error-message">{{ message }}</small>
+          </mat-card-actions>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</div>
