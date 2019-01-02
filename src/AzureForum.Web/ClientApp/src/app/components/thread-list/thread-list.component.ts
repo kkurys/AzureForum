@@ -1,10 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatTable } from '@angular/material';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import { AuthService } from './../../services/auth.service';
 import { PostsService } from './../../services/posts.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { CreateThreadModalComponent } from './create-thread-modal/create-thread-modal.component';
@@ -56,7 +55,6 @@ export class ThreadListComponent {
   }
 
   pageChanged(pageEvent) {
-    console.log(this.pageSize);
     this.getThreads(pageEvent.pageIndex, this.pageSize);
   }
 }
