@@ -25,6 +25,7 @@ export class ThreadListComponent {
   threadListing: ThreadListing = new ThreadListing(0, []);
   isLoggedIn: boolean;
   displayedColumns: string[] = ['topic', 'createdBy', 'createdOn', 'repliesCount'];
+  pageSize = 10;
   dataSource = new MatTableDataSource<PostThread>();
   constructor(
     private authService: AuthService,
@@ -44,13 +45,18 @@ export class ThreadListComponent {
           width: '400px',
         })
         .afterClosed()
-        .subscribe(result => this.getThreads());
+        .subscribe(result => this.getThreads(0, this.pageSize));
   }
-  getThreads() {
-    this.postService.getThreads(0)
+  getThreads(pageNumber = 0, postsPerPage = 10) {
+    this.postService.getThreads(pageNumber, postsPerPage)
       .subscribe(result => {
         this.threadListing = result;
         this.dataSource = new MatTableDataSource(<PostThread[]>result.postThreads);
       });
+  }
+
+  pageChanged(pageEvent) {
+    console.log(this.pageSize);
+    this.getThreads(pageEvent.pageIndex, this.pageSize);
   }
 }

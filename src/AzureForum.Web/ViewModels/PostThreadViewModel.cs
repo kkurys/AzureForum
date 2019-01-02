@@ -10,14 +10,14 @@ namespace AzureForum.Web.ViewModels
         public string Topic { get; set; }
         public AzureForumUserViewModel CreatedBy { get; set; }
         public int RepliesCount { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public string CreatedOn { get; set; }
         public PostThreadViewModel(PostThread x)
         {
             Id = x.Id.ToString();
             Topic = x.Topic;
             CreatedBy = new AzureForumUserViewModel(x.CreatedBy);
             RepliesCount = x.Posts.Count;
-            CreatedOn = x.Posts.First().CreatedOn;
+            CreatedOn = x.Posts.First().CreatedOn.ToString("g");
         }
     }
 }

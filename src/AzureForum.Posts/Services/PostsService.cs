@@ -69,11 +69,11 @@ namespace AzureForum.Posts.Services
 
             result.TotalCount = query.Count();
             result.PostThreads = await query
+                .OrderByDescending(x => x.CreatedOn)
                 .Skip(skip * take)
                 .Take(take)
                 .Include(x => x.CreatedBy)
                 .Include(x => x.Posts)
-                .OrderByDescending(x => x.CreatedOn)
                 .ToListAsync();
 
             return result;
@@ -94,6 +94,7 @@ namespace AzureForum.Posts.Services
 
             result.TotalCount = postThread.Posts.Count;
             result.Posts = postThread.Posts
+                .OrderByDescending(x => x.CreatedOn)
                 .Skip(skip * take)
                 .Take(take)
                 .ToList();

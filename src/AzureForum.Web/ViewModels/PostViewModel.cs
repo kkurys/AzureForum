@@ -1,6 +1,4 @@
-﻿using System;
-using AzureForum.Data.Models.Account;
-using AzureForum.Data.Models.Posts;
+﻿using AzureForum.Data.Models.Posts;
 
 namespace AzureForum.Web.ViewModels
 {
@@ -8,13 +6,13 @@ namespace AzureForum.Web.ViewModels
     {
         public string Id { get; set; }
         public string Content { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public string CreatedOn { get; set; }
         public AzureForumUserViewModel CreatedBy { get; set; }
         public PostViewModel(Post post)
         {
             Id = post.Id.ToString();
             Content = post.Content;
-            CreatedOn = post.CreatedOn;
+            CreatedOn = post.CreatedOn.ToString("g");
             CreatedBy = new AzureForumUserViewModel(post.CreatedBy);
         }
     }
