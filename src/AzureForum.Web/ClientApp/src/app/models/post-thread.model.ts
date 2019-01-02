@@ -4,6 +4,7 @@ export class PostThread {
   constructor(
     public id: string,
     public topic: string,
-    public user: User,
+    public createdBy: User,
+    public repliesCount: number
     ) { }
 }
