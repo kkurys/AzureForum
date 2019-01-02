@@ -20,7 +20,7 @@ namespace AzureForum.Posts.Services
             _dataService = dataService;
         }
 
-        public async Task<Post> CreatePost(AzureForumUser user, string content, string postThreadId)
+        public async Task<Post> CreatePostAsync(AzureForumUser user, string content, string postThreadId)
         {
             var postThread =
                 await _dataService.GetSet<PostThread>()
@@ -45,7 +45,7 @@ namespace AzureForum.Posts.Services
             return newPost;
         }
 
-        public async Task<PostThread> CreatePostThread(AzureForumUser user, string topic)
+        public async Task<PostThread> CreatePostThreadAsync(AzureForumUser user, string topic)
         {
             var newPostThread = new PostThread
             {
@@ -59,7 +59,7 @@ namespace AzureForum.Posts.Services
             return newPostThread;
         }
 
-        public async Task<PostThreadListingViewModel> GetLatestPostThreads(int skip = 0, int take = 10)
+        public async Task<PostThreadListingViewModel> GetLatestPostThreadsAsync(int skip = 0, int take = 10)
         {
             var result = new PostThreadListingViewModel();
 
@@ -76,7 +76,7 @@ namespace AzureForum.Posts.Services
             return result;
         }
 
-        public async Task<PostListingViewModel> GetLatestThreadPosts(string postThreadId, int skip = 0, int take = 10)
+        public async Task<PostListingViewModel> GetLatestThreadPostsAsync(string postThreadId, int skip = 0, int take = 10)
         {
             var result = new PostListingViewModel();
 

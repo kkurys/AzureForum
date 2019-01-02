@@ -11,8 +11,9 @@ import { NavMenuComponent } from "./components/nav-menu/nav-menu.component";
 import { HomeComponent } from "./components/home/home.component";
 import { LoginComponent } from './components/login/login.component'
 import { RegisterComponent } from './components/register/register.component'
-
+import { ThreadListComponent } from './components/thread-list/thread-list.component';
 import { AuthService } from "./services/auth.service";
+import { PostsService } from "./services/posts.service";
 import { JwtUtil } from "./utils/jwt.util";
 
 @NgModule({
@@ -21,7 +22,8 @@ import { JwtUtil } from "./utils/jwt.util";
     NavMenuComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ThreadListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -39,6 +41,7 @@ import { JwtUtil } from "./utils/jwt.util";
   providers: [
     AuthService,
     JwtUtil,
+    PostsService
     ],
   bootstrap: [AppComponent]
 })
