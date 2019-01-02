@@ -6,7 +6,10 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+  styleUrls: ["./login.component.css"]
 })
+
+
 export class LoginComponent {
   loginForm: FormGroup;
   message: string;
@@ -34,6 +37,6 @@ export class LoginComponent {
         localStorage.setItem('token', result);
         this.message = "";
         this.router.navigateByUrl('');
-      }, error => this.message = "Email lub hasło są niepoprawne.");
+      }, error => this.message = "Email lub hasło jest niepoprawne.");
   }
 }

@@ -9,7 +9,6 @@ import { MaterialModule } from './material.module';
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./components/nav-menu/nav-menu.component";
 import { HomeComponent } from "./components/home/home.component";
-import { NavLoginRegisterComponent } from "./components/nav-login-register/nav-login-register.component";
 import { LoginComponent } from './components/login/login.component'
 
 import { AuthService } from "./services/auth.service";
@@ -19,7 +18,6 @@ import { JwtUtil } from "./utils/jwt.util";
   declarations: [
     AppComponent,
     NavMenuComponent,
-    NavLoginRegisterComponent,
     HomeComponent,
     LoginComponent
   ],
