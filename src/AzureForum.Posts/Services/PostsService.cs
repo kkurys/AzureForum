@@ -50,6 +50,7 @@ namespace AzureForum.Posts.Services
             var newPostThread = new PostThread
             {
                 CreatedById = user.Id,
+                CreatedOn = DateTime.UtcNow,
                 Topic = topic
             };
 
@@ -59,26 +60,28 @@ namespace AzureForum.Posts.Services
             return newPostThread;
         }
 
-        public async Task<PostThreadListingViewModel> GetLatestPostThreadsAsync(int skip = 0, int take = 10)
+        public async Task<PostThreadListing> GetLatestPostThreadsAsync(int skip = 0, int take = 10)
         {
-            var result = new PostThreadListingViewModel();
+            var result = new PostThreadListing();
 
             var query = _dataService.GetSet<PostThread>()
                 .OrderByDescending(x => x.CreatedBy);
 
             result.TotalCount = query.Count();
             result.PostThreads = await query
-                        .Skip(skip * take)
-                        .Take(take)
-                        .Include(x => x.CreatedBy)
-                        .ToListAsync();
+                .Skip(skip * take)
+                .Take(take)
+                .Include(x => x.CreatedBy)
+                .Include(x => x.Posts)
+                .OrderByDescending(x => x.CreatedOn)
+                .ToListAsync();
 
             return result;
         }
 
-        public async Task<PostListingViewModel> GetLatestThreadPostsAsync(string postThreadId, int skip = 0, int take = 10)
+        public async Task<PostListing> GetLatestThreadPostsAsync(string postThreadId, int skip = 0, int take = 10)
         {
-            var result = new PostListingViewModel();
+            var result = new PostListing();
 
             var postThread = await _dataService.GetSet<PostThread>()
                 .Include(x => x.Posts)

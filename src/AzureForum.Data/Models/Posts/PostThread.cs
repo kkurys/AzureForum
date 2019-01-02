@@ -9,6 +9,7 @@ namespace AzureForum.Data.Models.Posts
         public Guid Id { get; set; }
         public string Topic { get; set; }
         public Guid CreatedById { get; set; }
+        public DateTime? CreatedOn { get; set; }
         public virtual AzureForumUser CreatedBy { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
     }

@@ -1,26 +1,42 @@
 <div *ngIf="isLoggedIn">
-  <button mat-raised-button color="primary">Utwórz nowy temat</button>
+  <button mat-raised-button color="primary" (click)="createThread()">Utwórz nowy temat</button>
 </div>
-<table *ngIf="!threadListing || threadListing.totalCount == 0" mat-table>
-  <tr>
-    <td>Brak tematów!</td>
-  </tr>
-</table>
-<table *ngIf="threadListing && threadListing.totalCount > 0" mat-table>
-  <tr>
-    <th>Temat</th>
-    <th>Autor</th>
-    <th>Odpowiedzi</th>
-  </tr>
-  <tr *ngFor="let thread of threadListing.threads">
-    <td>
-      {{thread.topic}}
-    </td>
-    <td>
-      {{thread.createdBy.userName}}
-    </td>
-    <td>
-      {{thread.repliesCount}}
-    </td>
-  </tr>
-</table>
+<div class="full-width container">
+  <mat-table #table [dataSource]="dataSource">
+
+    <!--- Note that these columns can be defined in any order.
+    The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="topic">
+      <mat-header-cell *matHeaderCellDef> Temat </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.topic}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="createdBy">
+      <mat-header-cell *matHeaderCellDef> Autor </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.createdBy.userName}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="createdOn">
+      <mat-header-cell *matHeaderCellDef> Utworzono </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.createdOn}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="repliesCount">
+      <mat-header-cell *matHeaderCellDef> Postów </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.repliesCount}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator length="{{threadListing.totalCount}}"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+</div>
+

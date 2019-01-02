@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AzureForum.Posts.Models
 {
-    public class PostListingViewModel
+    public class PostListing
     {
         public List<Post> Posts { get; set; }
         public int TotalCount { get; set; }

@@ -5,6 +5,7 @@ export class PostThread {
     public id: string,
     public topic: string,
     public createdBy: User,
-    public repliesCount: number
+    public repliesCount: number,
+    public createdOn: Date
     ) { }
 }
