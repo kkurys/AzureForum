@@ -1,5 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text;
+using System.Threading.Tasks;
 using AzureForum.Account.Contracts;
+using AzureForum.Common.Exceptions;
+using AzureForum.Data.Models.Account;
+using AzureForum.Data.Models.Posts;
+using AzureForum.Emails.Contracts;
 using AzureForum.Posts.Contracts;
 using AzureForum.Web.ViewModels;
 using AzureForum.Web.ViewModels.Requests;
@@ -12,11 +17,16 @@ namespace AzureForum.Web.Controllers
     {
         private readonly IUserService _userService;
         private readonly IPostsService _postService;
+        private readonly IEmailService _emailService;
 
-        public PostsController(IPostsService postService, IUserService userService)
+        public PostsController(
+            IPostsService postService,
+            IUserService userService,
+            IEmailService emailService)
         {
             _postService = postService;
             _userService = userService;
+            _emailService = emailService;
         }
 
         [HttpGet]
@@ -32,7 +42,14 @@ namespace AzureForum.Web.Controllers
         [HttpGet]
         public async Task<JsonResult> GetThreadPosts([FromQuery]string threadId, [FromQuery] int page, [FromQuery] int postsPerPage = 10)
         {
-            var model = await _postService.GetThreadPostsAsync(threadId, page, postsPerPage);
+            var thread = await _postService.GetPostThreadAsync(threadId);
+
+            if (thread == null)
+            {
+                throw new InvalidPostThreadIdException();
+            }
+
+            var model = await _postService.GetThreadPostsAsync(thread, page, postsPerPage);
 
             var result = new PostListingViewModel(model);
 
@@ -46,7 +63,7 @@ namespace AzureForum.Web.Controllers
             var currentUser = await _userService.GetUserByNameAsync(HttpContext.User.Identity.Name);
 
             var thread = await _postService.CreatePostThreadAsync(currentUser, request.Topic);
-            await _postService.CreatePostAsync(currentUser, request.Content, thread.Id.ToString());
+            await _postService.CreatePostAsync(currentUser, request.Content, thread);
 
             var result = new PostThreadViewModel(thread);
 
@@ -59,11 +76,41 @@ namespace AzureForum.Web.Controllers
         {
             var currentUser = await _userService.GetUserByNameAsync(HttpContext.User.Identity.Name);
 
-            var post = await _postService.CreatePostAsync(currentUser, request.Content, request.ThreadId);
+            var thread = await _postService.GetPostThreadAsync(request.ThreadId);
+            if (thread == null)
+            {
+                throw new InvalidPostThreadIdException();
+            }
+
+            var post = await _postService.CreatePostAsync(currentUser, request.Content, thread);
+
+            var threadAuthors = await _postService.GetThreadAuthorsAsync(thread);
+
+            foreach (var author in threadAuthors)
+            {
+                if (author.Id.ToString() == currentUser.Id.ToString())
+                {
+                    continue;
+                }
+
+                await _emailService.SendEmail(author, $"Nowe wiadomości w temacie {thread.Topic}!",
+                    PreparePostNotificationContent(author, thread));
+            }
 
             var result = new PostViewModel(post);
 
             return Json(result);
+        }
+
+        private string PreparePostNotificationContent(AzureForumUser user, PostThread thread)
+        {
+            var sb = new StringBuilder();
+
+            sb.Append($"<h1><b>Witaj {user.UserName} </b></h1>");
+            sb.Append(
+                $"Informujemy, ze w dyskusji na temat {thread.Topic} w ktorej brales udzial pojawil sie nowy post. Mozesz przejsc do tego tematu klikajac: <a href=\"{Request.Scheme}://{Request.Host}/thread/{thread.Id}\">TUTAJ</a>");
+
+            return sb.ToString();
         }
     }
 }

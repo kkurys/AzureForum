@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AzureForum.Common.Exceptions;
@@ -20,17 +21,8 @@ namespace AzureForum.Posts.Services
             _dataService = dataService;
         }
 
-        public async Task<Post> CreatePostAsync(AzureForumUser user, string content, string postThreadId)
+        public async Task<Post> CreatePostAsync(AzureForumUser user, string content, PostThread postThread)
         {
-            var postThread =
-                await _dataService.GetSet<PostThread>()
-                    .FirstOrDefaultAsync(x => x.Id.ToString() == postThreadId);
-
-            if (postThread == null)
-            {
-                throw new InvalidPostThreadIdException();
-            }
-
             var newPost = new Post
             {
                 Content = content,
@@ -79,19 +71,9 @@ namespace AzureForum.Posts.Services
             return result;
         }
 
-        public async Task<PostListing> GetThreadPostsAsync(string postThreadId, int skip = 0, int take = 10)
+        public async Task<PostListing> GetThreadPostsAsync(PostThread postThread, int skip = 0, int take = 10)
         {
             var result = new PostListing();
-
-            var postThread = await _dataService.GetSet<PostThread>()
-                .Include(x => x.Posts)
-                .ThenInclude(x => x.CreatedBy)
-                .FirstOrDefaultAsync(x => x.Id.ToString() == postThreadId);
-
-            if (postThread == null)
-            {
-                throw new InvalidPostThreadIdException();
-            }
 
             result.ThreadTopic = postThread.Topic;
             result.TotalCount = postThread.Posts.Count;
@@ -102,6 +84,23 @@ namespace AzureForum.Posts.Services
                 .ToList();
 
             return result;
+        }
+
+        public async Task<List<AzureForumUser>> GetThreadAuthorsAsync(PostThread postThread)
+        {
+            var authors = postThread.Posts.Select(x => x.CreatedBy).Distinct();
+
+            return authors.ToList();
+        }
+
+        public async Task<PostThread> GetPostThreadAsync(string postThreadId)
+        {
+            var postThread = await _dataService.GetSet<PostThread>()
+                .Include(x => x.Posts)
+                .ThenInclude(x => x.CreatedBy)
+                .FirstOrDefaultAsync(x => x.Id.ToString() == postThreadId);
+
+            return postThread;
         }
     }
 }

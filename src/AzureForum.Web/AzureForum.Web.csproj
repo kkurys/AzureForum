@@ -44,6 +44,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AzureForum.Account\AzureForum.Account.csproj" />
     <ProjectReference Include="..\AzureForum.Data\AzureForum.Data.csproj" />
+    <ProjectReference Include="..\AzureForum.Emails\AzureForum.Emails.csproj" />
     <ProjectReference Include="..\AzureForum.Posts\AzureForum.Posts.csproj" />
   </ItemGroup>
 
