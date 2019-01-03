@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map'
 import { BaseService } from './base.service';
 
 import { ThreadListing } from '../models/thread-listing.model';
+import { PostListing } from '../models/post-listing.model';
 import { CreateThreadRequest } from '../models/requests/create-thread-request.model';
 
 @Injectable()
@@ -21,6 +22,18 @@ export class PostsService extends BaseService {
 
     return this.http.get<ThreadListing>(url, { params: params, headers: this.headers });
   }
+
+  getPosts(threadId, page, postsPerPage = 10) {
+    let url = this.baseUrl + 'Posts/GetThreadPosts';
+
+    let params = new HttpParams()
+      .set("page", page)
+      .set("postsPerPage", postsPerPage.toString())
+      .set("threadId", threadId);
+
+    return this.http.get<PostListing>(url, { params: params, headers: this.headers });
+  }
+
   createThread(topic: string, content: string) {
     let url = this.baseUrl + "Posts/CreateThread";
 

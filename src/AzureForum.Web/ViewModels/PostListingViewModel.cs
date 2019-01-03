@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using AzureForum.Posts.Models;
+using System.Collections.Generic;
 using System.Linq;
-using AzureForum.Data.Models.Posts;
-using AzureForum.Posts.Models;
 
 namespace AzureForum.Web.ViewModels
 {

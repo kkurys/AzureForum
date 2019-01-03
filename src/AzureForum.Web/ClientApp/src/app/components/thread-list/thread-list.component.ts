@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material';
 
 import { AuthService } from './../../services/auth.service';
 import { PostsService } from './../../services/posts.service';
-import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { CreateThreadModalComponent } from './create-thread-modal/create-thread-modal.component';
@@ -19,13 +18,12 @@ import { MatTableDataSource } from '@angular/material/table';
 
 
 export class ThreadListComponent {
-  loginForm: FormGroup;
-  message: string;
   threadListing: ThreadListing = new ThreadListing(0, []);
   isLoggedIn: boolean;
   displayedColumns: string[] = ['topic', 'createdBy', 'createdOn', 'repliesCount'];
   pageSize = 10;
   dataSource = new MatTableDataSource<PostThread>();
+
   constructor(
     private authService: AuthService,
     private postService: PostsService,
@@ -36,7 +34,8 @@ export class ThreadListComponent {
     this.isLoggedIn = this.authService.isLoggedIn();
     this.getThreads();
   }
-  createThread() {
+
+  openCreateThreadModal() {
     const dialogRef =
       this.dialog
         .open(CreateThreadModalComponent, {
@@ -46,11 +45,12 @@ export class ThreadListComponent {
         .afterClosed()
         .subscribe(result => this.getThreads(0, this.pageSize));
   }
+
   getThreads(pageNumber = 0, postsPerPage = 10) {
     this.postService.getThreads(pageNumber, postsPerPage)
       .subscribe(result => {
         this.threadListing = result;
-        this.dataSource = new MatTableDataSource(<PostThread[]>result.postThreads);
+        this.dataSource = new MatTableDataSource(result.postThreads);
       });
   }
 
