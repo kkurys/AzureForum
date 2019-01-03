@@ -19,6 +19,13 @@
           <span style="color: lightgrey;">{{post.createdOn}}</span>
         </mat-card-footer>
       </mat-card>
+      <mat-paginator [length]="postListing.totalCount"
+                     [pageSize]="pageSize"
+                     (page)="pageChanged($event)">
+      </mat-paginator>
+      <div *ngIf="isLoggedIn && displayNewPostButton">
+        <button mat-raised-button color="primary" (click)="openCreatePostModal()">Napisz odpowiedź</button>
+      </div>
     </div>
   </div>
 </div>

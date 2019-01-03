@@ -79,7 +79,7 @@ namespace AzureForum.Posts.Services
             return result;
         }
 
-        public async Task<PostListing> GetLatestThreadPostsAsync(string postThreadId, int skip = 0, int take = 10)
+        public async Task<PostListing> GetThreadPostsAsync(string postThreadId, int skip = 0, int take = 10)
         {
             var result = new PostListing();
 
@@ -96,7 +96,7 @@ namespace AzureForum.Posts.Services
             result.ThreadTopic = postThread.Topic;
             result.TotalCount = postThread.Posts.Count;
             result.Posts = postThread.Posts
-                .OrderByDescending(x => x.CreatedOn)
+                .OrderBy(x => x.CreatedOn)
                 .Skip(skip * take)
                 .Take(take)
                 .ToList();

@@ -14,6 +14,7 @@ import { RegisterComponent } from './components/register/register.component'
 import { ThreadListComponent } from './components/thread-list/thread-list.component';
 import { CreateThreadModalComponent } from './components/thread-list/create-thread-modal/create-thread-modal.component';
 import { ThreadComponent } from './components/thread/thread.component';
+import { CreatePostModalComponent } from './components/thread/create-post-modal/create-post-modal.component';
 
 import { AuthService } from "./services/auth.service";
 import { PostsService } from "./services/posts.service";
@@ -28,7 +29,8 @@ import { JwtUtil } from "./utils/jwt.util";
     RegisterComponent,
     ThreadListComponent,
     ThreadComponent,
-    CreateThreadModalComponent
+    CreateThreadModalComponent,
+    CreatePostModalComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -51,7 +53,9 @@ import { JwtUtil } from "./utils/jwt.util";
     ],
   bootstrap: [AppComponent],
   entryComponents: [
-    CreateThreadModalComponent]
+    CreateThreadModalComponent,
+    CreatePostModalComponent
+  ]
 })
 export class AppModule {
 }

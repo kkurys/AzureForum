@@ -32,7 +32,7 @@ namespace AzureForum.Web.Controllers
         [HttpGet]
         public async Task<JsonResult> GetThreadPosts([FromQuery]string threadId, [FromQuery] int page, [FromQuery] int postsPerPage = 10)
         {
-            var model = await _postService.GetLatestThreadPostsAsync(threadId, page, postsPerPage);
+            var model = await _postService.GetThreadPostsAsync(threadId, page, postsPerPage);
 
             var result = new PostListingViewModel(model);
 

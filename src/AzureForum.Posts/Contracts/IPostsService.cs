@@ -10,6 +10,6 @@ namespace AzureForum.Posts.Contracts
         Task<Post> CreatePostAsync(AzureForumUser user, string content, string postThreadId);
         Task<PostThread> CreatePostThreadAsync(AzureForumUser user, string topic);
         Task<PostThreadListing> GetLatestPostThreadsAsync(int skip = 0, int take = 10);
-        Task<PostListing> GetLatestThreadPostsAsync(string postThreadId, int skip = 0, int take = 10);
+        Task<PostListing> GetThreadPostsAsync(string postThreadId, int skip = 0, int take = 10);
     }
 }

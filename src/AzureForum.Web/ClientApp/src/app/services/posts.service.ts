@@ -5,7 +5,10 @@ import { BaseService } from './base.service';
 
 import { ThreadListing } from '../models/thread-listing.model';
 import { PostListing } from '../models/post-listing.model';
+
+import { CreatePostRequest } from '../models/requests/create-post-request.model';
 import { CreateThreadRequest } from '../models/requests/create-thread-request.model';
+
 
 @Injectable()
 export class PostsService extends BaseService {
@@ -38,6 +41,13 @@ export class PostsService extends BaseService {
     let url = this.baseUrl + "Posts/CreateThread";
 
     let body = new CreateThreadRequest(topic, content);
+    return this.http.post(url, body, { headers: this.headers });
+  }
+
+  createPost(threadId: string, content: string) {
+    let url = this.baseUrl + "Posts/CreatePost";
+
+    let body = new CreatePostRequest(threadId, content);
     return this.http.post(url, body, { headers: this.headers });
   }
 }
