@@ -85,6 +85,7 @@ namespace AzureForum.Posts.Services
 
             var postThread = await _dataService.GetSet<PostThread>()
                 .Include(x => x.Posts)
+                .ThenInclude(x => x.CreatedBy)
                 .FirstOrDefaultAsync(x => x.Id.ToString() == postThreadId);
 
             if (postThread == null)
@@ -92,6 +93,7 @@ namespace AzureForum.Posts.Services
                 throw new InvalidPostThreadIdException();
             }
 
+            result.ThreadTopic = postThread.Topic;
             result.TotalCount = postThread.Posts.Count;
             result.Posts = postThread.Posts
                 .OrderByDescending(x => x.CreatedOn)

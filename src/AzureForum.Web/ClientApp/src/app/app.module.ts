@@ -13,6 +13,7 @@ import { LoginComponent } from './components/login/login.component'
 import { RegisterComponent } from './components/register/register.component'
 import { ThreadListComponent } from './components/thread-list/thread-list.component';
 import { CreateThreadModalComponent } from './components/thread-list/create-thread-modal/create-thread-modal.component';
+import { ThreadComponent } from './components/thread/thread.component';
 
 import { AuthService } from "./services/auth.service";
 import { PostsService } from "./services/posts.service";
@@ -26,6 +27,7 @@ import { JwtUtil } from "./utils/jwt.util";
     LoginComponent,
     RegisterComponent,
     ThreadListComponent,
+    ThreadComponent,
     CreateThreadModalComponent
   ],
   imports: [
@@ -33,7 +35,8 @@ import { JwtUtil } from "./utils/jwt.util";
     RouterModule.forRoot([
       { path: "", component: HomeComponent, pathMatch: "full" },
       { path: "login", component: LoginComponent },
-      { path: "register", component: RegisterComponent}
+      { path: "register", component: RegisterComponent },
+      { path: "thread/:id", component: ThreadComponent }
     ]),
     HttpClientModule,
     HttpModule,

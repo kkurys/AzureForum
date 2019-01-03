@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div class="offset-md-3 col-md-6 login-form">
+      <h2>Temat: {{postListing.threadTopic}}</h2>
+      <mat-card class="example-card" *ngFor="let post of postListing.posts">
+        <mat-card-header>
+          <mat-card-title>
+            Autor: <b>{{post.createdBy.userName}}</b>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-card class="full-width">
+            <mat-card-content>
+              {{post.content}}
+            </mat-card-content>
+          </mat-card>
+        </mat-card-content>
+        <mat-card-footer style="text-align: right; padding-right: 10px;">
+          <span style="color: lightgrey;">{{post.createdOn}}</span>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+</div>
+

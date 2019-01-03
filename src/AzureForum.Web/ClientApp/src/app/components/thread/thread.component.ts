@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
 
 import { AuthService } from './../../services/auth.service';
 import { PostsService } from './../../services/posts.service';
 
 import { Post } from '../../models/post.model';
 import { PostListing } from '../../models/post-listing.model';
-
-import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-thread',
@@ -19,27 +18,27 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ThreadComponent {
   message: string;
   isLoggedIn: boolean;
-  displayedColumns: string[] = ['topic', 'createdBy', 'createdOn', 'repliesCount'];
   pageSize = 10;
-  dataSource = new MatTableDataSource<Post>();
-  postListing: PostListing = new PostListing(0, []);
-
+  postListing: PostListing = new PostListing("", 0, []);
+  threadId: string;
   constructor(
     private authService: AuthService,
     private postService: PostsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.isLoggedIn = this.authService.isLoggedIn();
+    this.threadId = this.route.snapshot.paramMap.get('id');
     this.getPosts();
   }
 
   getPosts(pageNumber = 0, postsPerPage = 10) {
-    this.postService.getPosts(pageNumber, postsPerPage)
+    this.postService.getPosts(this.threadId, pageNumber, postsPerPage)
       .subscribe(result => {
         this.postListing = result;
-        this.dataSource = new MatTableDataSource(<Post[]>result.posts);
+        console.log(result);
       });
   }
 

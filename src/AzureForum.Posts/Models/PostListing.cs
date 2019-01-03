@@ -7,5 +7,6 @@ namespace AzureForum.Posts.Models
     {
         public List<Post> Posts { get; set; }
         public int TotalCount { get; set; }
+        public string ThreadTopic { get; set; }
     }
 }
