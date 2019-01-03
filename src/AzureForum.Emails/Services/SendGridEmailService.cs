@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using AzureForum.Data.Models.Account;
+﻿using AzureForum.Data.Models.Account;
 using AzureForum.Emails.Contracts;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using System.Threading.Tasks;
 
 namespace AzureForum.Emails.Services
 {
@@ -26,7 +26,7 @@ namespace AzureForum.Emails.Services
 
             msg.AddTo(new EmailAddress(to.Email, to.UserName));
 
-            var response = await client.SendEmailAsync(msg);
+            await client.SendEmailAsync(msg);
         }
     }
 }

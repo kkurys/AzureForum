@@ -71,7 +71,7 @@ namespace AzureForum.Posts.Services
             return result;
         }
 
-        public async Task<PostListing> GetThreadPostsAsync(PostThread postThread, int skip = 0, int take = 10)
+        public PostListing GetThreadPosts(PostThread postThread, int skip = 0, int take = 10)
         {
             var result = new PostListing();
 
@@ -86,7 +86,7 @@ namespace AzureForum.Posts.Services
             return result;
         }
 
-        public async Task<List<AzureForumUser>> GetThreadAuthorsAsync(PostThread postThread)
+        public List<AzureForumUser> GetThreadAuthors(PostThread postThread)
         {
             var authors = postThread.Posts.Select(x => x.CreatedBy).Distinct();
 

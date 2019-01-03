@@ -10,6 +10,7 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <UserSecretsId>fb11a081-41db-49e0-9dad-d4b868fc3597</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -43,6 +44,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AzureForum.Account\AzureForum.Account.csproj" />
+    <ProjectReference Include="..\AzureForum.Common\AzureForum.Common.csproj" />
     <ProjectReference Include="..\AzureForum.Data\AzureForum.Data.csproj" />
     <ProjectReference Include="..\AzureForum.Emails\AzureForum.Emails.csproj" />
     <ProjectReference Include="..\AzureForum.Posts\AzureForum.Posts.csproj" />
@@ -71,8 +73,8 @@
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr -- --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build --prod" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
 
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>

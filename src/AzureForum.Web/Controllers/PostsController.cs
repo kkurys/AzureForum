@@ -49,7 +49,7 @@ namespace AzureForum.Web.Controllers
                 throw new InvalidPostThreadIdException();
             }
 
-            var model = await _postService.GetThreadPostsAsync(thread, page, postsPerPage);
+            var model = _postService.GetThreadPosts(thread, page, postsPerPage);
 
             var result = new PostListingViewModel(model);
 
@@ -84,7 +84,7 @@ namespace AzureForum.Web.Controllers
 
             var post = await _postService.CreatePostAsync(currentUser, request.Content, thread);
 
-            var threadAuthors = await _postService.GetThreadAuthorsAsync(thread);
+            var threadAuthors = _postService.GetThreadAuthors(thread);
 
             foreach (var author in threadAuthors)
             {
@@ -93,8 +93,9 @@ namespace AzureForum.Web.Controllers
                     continue;
                 }
 
-                await _emailService.SendEmail(author, $"Nowe wiadomości w temacie {thread.Topic}!",
-                    PreparePostNotificationContent(author, thread));
+                var content = PreparePostNotificationContent(author, thread);
+
+                await _emailService.SendEmail(author, $"Nowe wiadomości w temacie {thread.Topic}!", content);
             }
 
             var result = new PostViewModel(post);
@@ -106,9 +107,9 @@ namespace AzureForum.Web.Controllers
         {
             var sb = new StringBuilder();
 
-            sb.Append($"<h1><b>Witaj {user.UserName} </b></h1>");
+            sb.Append($"<h3><b>Witaj {user.UserName}! </b></h3>");
             sb.Append(
-                $"Informujemy, ze w dyskusji na temat {thread.Topic} w ktorej brales udzial pojawil sie nowy post. Mozesz przejsc do tego tematu klikajac: <a href=\"{Request.Scheme}://{Request.Host}/thread/{thread.Id}\">TUTAJ</a>");
+                $"Informujemy, ze w dyskusji na temat \"{thread.Topic}\" w ktorej brales udzial pojawil sie nowy post. Mozesz przejsc do tego tematu klikajac <a href=\"{Request.Scheme}://{Request.Host}/thread/{thread.Id}\">TUTAJ</a>");
 
             return sb.ToString();
         }
